@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kty1965/TripScanner-rails.svg?branch=master)](https://travis-ci.org/kty1965/TripScanner-rails)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -22,3 +24,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* test
