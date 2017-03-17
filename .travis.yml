@@ -11,3 +11,8 @@ before_script:
   - RAILS_ENV=test bundle exec rake db:drop
   - RAILS_ENV=test bundle exec rake db:create
 bundler_args: --binstubs=./bundler_stubs
+
+notifications:
+  slack:
+    rooms:
+      - ajou-zenith:uen97ugZWR9rj913XBKoPiT8#rails
