@@ -8,8 +8,7 @@ script:
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
 before_script:
-  - RAILS_ENV=test bundle exec rake db:drop
-  - RAILS_ENV=test bundle exec rake db:create
+  - bundle exec rake routes
 bundler_args: --binstubs=./bundler_stubs
 
 notifications:
