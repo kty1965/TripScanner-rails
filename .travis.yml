@@ -3,13 +3,18 @@ rvm:
   - "2.3.3"
 env:
   - DB=sqlite3
-script: 
+script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
+
+before_install:
+  - mysql -e 'CREATE DATABASE tripscanner-test;'
 before_script:
   - bundle exec rake routes
 bundler_args: --binstubs=./bundler_stubs
+services:
+  - mysql
 
 notifications:
   slack:
