@@ -11,7 +11,6 @@ default: &default
   password: capstone!!
   encoding: utf8
   host: localhost
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -22,7 +21,7 @@ development:
 test:
   <<: *default
   username: travis
-  database: tripscanner-test
+  database: tripscanner_test
 
 production:
   <<: *default

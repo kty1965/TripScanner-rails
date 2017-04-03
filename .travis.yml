@@ -9,7 +9,7 @@ script:
   - bundle exec rake
   - bundle exec rspec spec
 before_script:
-  - mysql -e 'create database tripscanner-test'
+  - mysql -e 'create database tripscanner_test'
   - bundle exec rake routes
 bundler_args: --binstubs=./bundler_stubs
 services:
