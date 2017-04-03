@@ -21,6 +21,7 @@ development:
 test:
   <<: *default
   username: travis
+  password:
   database: tripscanner_test
 
 production:
