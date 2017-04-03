@@ -6,8 +6,10 @@ env:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rspec spec/
+  - bundle exec rake
+  - bundle exec rspec spec
 before_script:
+  - mysql -e 'create database tripscanner-test'
   - bundle exec rake routes
 bundler_args: --binstubs=./bundler_stubs
 services:
