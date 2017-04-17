@@ -46,3 +46,11 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'mysql2'
+
+gem 'devise', '~> 4.2.1'
+
+gem 'simple_token_authentication', '~> 1.0'
+
+gem 'cancancan'
+
+gem 'omniauth-facebook'
