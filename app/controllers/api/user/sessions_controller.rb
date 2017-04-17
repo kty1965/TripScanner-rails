@@ -4,4 +4,8 @@ class Api::User::SessionsController < Devise::SessionsController
   def resource_name
     :user
   end
+
+  def respond_to_on_destroy
+    render json: {}
+  end
 end
