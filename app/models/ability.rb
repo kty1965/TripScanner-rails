@@ -6,6 +6,7 @@ class Ability
     alias_action :read, :update, :destroy, :to => :modify
 
     can :manage, User, id: @resource.id
+    can :manage, Trip, owner_id: @resource.id
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
