@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     scope "/v1", shallow_path: "/v1" do
       devise_for :users, :controllers => { :sessions => "api/user/sessions", :registrations => "api/user/registrations", :omniauth_callbacks => "api/users/omniauth_callbacks" }
       resources :users, only: [:show]
+
+      resources :trips
     end
   end
 end

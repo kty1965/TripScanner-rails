@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+# User.first.trips.create(address: "경기도 수원시 아주대학교", check_in: "2017-05-01", check_out: "2017-05-02")

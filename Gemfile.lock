@@ -67,6 +67,7 @@ GEM
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    geocoder (1.4.3)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.6)
@@ -195,6 +196,7 @@ DEPENDENCIES
   cancancan
   devise (~> 4.2.1)
   factory_girl_rails
+  geocoder
   listen (~> 3.0.5)
   mysql2
   omniauth-facebook

@@ -54,3 +54,5 @@ gem 'simple_token_authentication', '~> 1.0'
 gem 'cancancan'
 
 gem 'omniauth-facebook'
+
+gem 'geocoder'
