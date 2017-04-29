@@ -1,6 +1,7 @@
 class Trip < ApplicationRecord
 
   belongs_to :owner, class_name: "User"
+  has_many :reviews
 
   geocoded_by :address   # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates

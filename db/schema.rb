@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417085406) do
+ActiveRecord::Schema.define(version: 20170429081324) do
+
+  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "writer_id",                null: false
+    t.integer  "owner_id",                 null: false
+    t.string   "scope",                    null: false
+    t.float    "rate",       limit: 24,    null: false
+    t.text     "content",    limit: 65535
+    t.integer  "trip_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["owner_id"], name: "index_reviews_on_owner_id", using: :btree
+    t.index ["trip_id"], name: "index_reviews_on_trip_id", using: :btree
+    t.index ["writer_id"], name: "index_reviews_on_writer_id", using: :btree
+  end
 
   create_table "trips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "owner_id",              null: false
@@ -46,4 +60,6 @@ ActiveRecord::Schema.define(version: 20170417085406) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "reviews", "users", column: "owner_id"
+  add_foreign_key "reviews", "users", column: "writer_id"
 end

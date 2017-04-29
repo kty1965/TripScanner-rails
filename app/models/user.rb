@@ -9,6 +9,9 @@ class User < ApplicationRecord
 
   has_many :trips, foreign_key: "owner_id", class_name: "Trip", dependent: :destroy
 
+  has_many :owned_reviews, class_name: "Review", foreign_key: "owner_id"
+  has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -19,5 +22,9 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
+  end
+
+  def reviews
+    owned_reviews | written_reviews
   end
 end
