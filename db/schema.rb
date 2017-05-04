@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429081324) do
+ActiveRecord::Schema.define(version: 20170504120010) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "writer_id",                null: false
     t.integer  "owner_id",                 null: false
-    t.string   "scope",                    null: false
+    t.string   "view_scope",               null: false
     t.float    "rate",       limit: 24,    null: false
     t.text     "content",    limit: 65535
     t.integer  "trip_id"

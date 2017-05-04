@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
   before_action :find_me
 
   def show
-    render json: @user
+    render json: @user, serializer: ::Users::ShowSerializer
   end
 
   private
