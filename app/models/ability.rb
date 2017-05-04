@@ -7,6 +7,10 @@ class Ability
 
     can :manage, User, id: @resource.id
     can :manage, Trip, owner_id: @resource.id
+    can :read, Review, view_scope: "public"
+    can :create, Review
+    can :read, Review, {view_scope: "private", owner_id: @resource.id}
+    can :read, Review, {view_scope: "private", writer_id: @resource.id}
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

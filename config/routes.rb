@@ -9,12 +9,11 @@ Rails.application.routes.draw do
       resources :users, only: [:show]
 
       resources :trips
-      resources :reviews do
-        # member do
-        #  get 'owned'
-        #  get 'written'
-        #  get 'all'
-        # end
+      resources :reviews, only: [:show, :create] do
+        collection do
+         get 'owned'
+         get 'written'
+        end
       end
     end
   end

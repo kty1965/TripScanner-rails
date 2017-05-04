@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504120010) do
+ActiveRecord::Schema.define(version: 20170504124610) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "writer_id",                null: false
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20170504120010) do
     t.index ["owner_id"], name: "index_reviews_on_owner_id", using: :btree
     t.index ["trip_id"], name: "index_reviews_on_trip_id", using: :btree
     t.index ["writer_id"], name: "index_reviews_on_writer_id", using: :btree
+  end
+
+  create_table "trip_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "trip_id",    null: false
+    t.integer  "member_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_trip_members_on_member_id", using: :btree
+    t.index ["trip_id", "member_id"], name: "index_trip_members_on_trip_id_and_member_id", unique: true, using: :btree
+    t.index ["trip_id"], name: "index_trip_members_on_trip_id", using: :btree
   end
 
   create_table "trips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -62,4 +72,5 @@ ActiveRecord::Schema.define(version: 20170504120010) do
 
   add_foreign_key "reviews", "users", column: "owner_id"
   add_foreign_key "reviews", "users", column: "writer_id"
+  add_foreign_key "trip_members", "users", column: "member_id"
 end
