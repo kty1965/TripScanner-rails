@@ -1,13 +1,18 @@
 class Trip < ApplicationRecord
 
   belongs_to :owner, class_name: "User"
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
-  has_many :trip_members
+  has_many :trip_members, dependent: :destroy
   has_many :members, through: :trip_members, class_name: "User"
 
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  geocoded_by :address do |obj, results|
+    if geo = results.first
+      obj.city = geo.city
+      obj.country = geo.country
+    end
+  end
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode  # auto-fetch address

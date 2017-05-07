@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504124610) do
+ActiveRecord::Schema.define(version: 20170507113052) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "writer_id",                null: false
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(version: 20170504124610) do
     t.datetime "updated_at",            null: false
     t.float    "latitude",   limit: 24
     t.float    "longitude",  limit: 24
+    t.string   "state"
+    t.string   "city"
+    t.string   "country"
     t.index ["owner_id"], name: "index_trips_on_owner_id", using: :btree
   end
 
@@ -72,5 +75,6 @@ ActiveRecord::Schema.define(version: 20170504124610) do
 
   add_foreign_key "reviews", "users", column: "owner_id"
   add_foreign_key "reviews", "users", column: "writer_id"
+  add_foreign_key "trip_members", "trips"
   add_foreign_key "trip_members", "users", column: "member_id"
 end
