@@ -10,6 +10,8 @@ class Trip < ApplicationRecord
     if geo = results.first
       obj.city = geo.city
       obj.country = geo.country
+      obj.longitude = geo.longitude
+      obj.latitude = geo.latitude
     end
   end
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
