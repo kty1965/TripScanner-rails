@@ -8,4 +8,8 @@ class Api::User::SessionsController < Devise::SessionsController
   def respond_to_on_destroy
     render json: {}
   end
+
+  def respond_with(resource, opts = {})
+    render json: resource, serializer: ::Users::ShowSerializer
+  end
 end
