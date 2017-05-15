@@ -16,7 +16,17 @@ class Api::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
     end
   end
 
+  def after_sign_in_path_for(resource)
+    if resource.is_a? User
+      # TODO Change localhost:8080
+      "http://localhost:8080/"
+    else
+      super
+    end
+  end
+
   def failure
-    redirect_to root_path
+    # TODO Change localhost:8080
+    redirect_to "http://localhost:8080/"
   end
 end
