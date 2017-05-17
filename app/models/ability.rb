@@ -9,7 +9,6 @@ class Ability
 
     # For Review
     can :read, Review, view_scope: "public"
-    can :create, Review
     can :read, Review, {view_scope: "private", owner_id: @resource.id}
     can :read, Review, {view_scope: "private", writer_id: @resource.id}
 
