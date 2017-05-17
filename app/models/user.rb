@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :owned_reviews, class_name: "Review", foreign_key: "owner_id"
   has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
 
+  validates :gender, presence: true, inclusion: { in: %w(male female) }
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
