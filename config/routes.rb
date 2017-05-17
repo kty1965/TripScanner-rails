@@ -8,7 +8,12 @@ Rails.application.routes.draw do
       devise_for :users, :controllers => { :sessions => "api/user/sessions", :registrations => "api/user/registrations", :omniauth_callbacks => "api/users/omniauth_callbacks" }
       resources :users, only: [:show]
 
-      resources :trips
+      resources :trips  do
+        collection do
+         get 'owned'
+         get 'joined'
+        end
+      end
       resources :reviews, only: [:show, :create] do
         collection do
          get 'owned'

@@ -7,7 +7,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
-  has_many :trips, foreign_key: "owner_id", class_name: "Trip", dependent: :destroy
+  has_many :trip_members, foreign_key: "member_id", dependent: :destroy
+  has_many :joined_trips, through: :trip_members, source: :trip
+  has_many :owned_trips, foreign_key: "owner_id", class_name: "Trip", dependent: :destroy
 
   has_many :owned_reviews, class_name: "Review", foreign_key: "owner_id"
   has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
