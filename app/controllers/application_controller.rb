@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  before_action :configure_permitted_parameters, if: :devise_controller?
   acts_as_token_authentication_handler_for User
   include CanCan::ControllerAdditions
 
@@ -37,5 +38,11 @@ class ApplicationController < ActionController::API
     respond_to do |format|
       format.json { render json: {errors: errors}, status: :unprocessable_entity }
     end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :gender])
   end
 end
