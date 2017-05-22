@@ -1,4 +1,5 @@
 class Api::TripsController < ApplicationController
+  before_action :date_check, only: [:index]
   before_action :authenticate_user!, only: [:owned, :joined, :create]
   load_and_authorize_resource :trip, only: [:index, :show, :update, :destroy]
 
@@ -27,6 +28,7 @@ class Api::TripsController < ApplicationController
     else
       @trips.where("address LIKE '%#{params[:address]}%' or city LIKE '%#{params[:city]}%'")
     end
+    @trips = @trips.where(check_in: @check_in..@check_out, check_out: @check_in..@check_out)
     render json: @trips
   end
 
@@ -48,6 +50,11 @@ class Api::TripsController < ApplicationController
   end
 
   private
+
+  def date_check
+    @check_in = params[:checkIn].to_date
+    @check_out = params[:checkOut].to_date
+  end
 
   def trip_params
     params.require(:trip).permit(:check_in, :check_out, :address)
