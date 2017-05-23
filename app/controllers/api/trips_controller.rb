@@ -23,11 +23,11 @@ class Api::TripsController < ApplicationController
 
   #load_and_authorize
   def index
-    @trips = unless params[:city]
-      @trips.where("address LIKE '%#{params[:address]}%'")
-    else
-      @trips.where("address LIKE '%#{params[:address]}%' or city LIKE '%#{params[:city]}%'")
-    end
+    raise ActiveRecord::RecordNotFound unless address = params[:address]
+    res = Geocoder.search(params[:address])
+    city = res.try(:first).try(:city)
+    country = res.try(:first).try(:country)
+    @trips = @trips.where("address LIKE '%#{address}%' or city LIKE '%#{city}%' and country='#{country}'")
     @trips = @trips.where(check_in: @check_in..@check_out, check_out: @check_in..@check_out)
     render json: @trips
   end
