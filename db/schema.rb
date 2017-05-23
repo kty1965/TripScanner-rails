@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523165546) do
+ActiveRecord::Schema.define(version: 20170523172530) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "writer_id",                null: false
@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(version: 20170523165546) do
   end
 
   create_table "trips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "owner_id",                      null: false
-    t.string   "address",                       null: false
-    t.date     "check_in",                      null: false
-    t.date     "check_out",                     null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "owner_id",                         null: false
+    t.string   "address",                          null: false
+    t.date     "check_in",                         null: false
+    t.date     "check_out",                        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.float    "latitude",           limit: 24
     t.float    "longitude",          limit: 24
     t.string   "city"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170523165546) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.text     "content",            limit: 65535
     t.index ["owner_id"], name: "index_trips_on_owner_id", using: :btree
   end
 
