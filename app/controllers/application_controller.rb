@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :find_asset_host
   acts_as_token_authentication_handler_for User
   include CanCan::ControllerAdditions
 
@@ -37,6 +38,12 @@ class ApplicationController < ActionController::API
     end
     respond_to do |format|
       format.json { render json: {errors: errors}, status: :unprocessable_entity }
+    end
+  end
+
+  def find_asset_host
+    if Rails.env.development?
+      ActionController::Base.asset_host = request.host_with_port
     end
   end
 

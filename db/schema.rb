@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517140626) do
+ActiveRecord::Schema.define(version: 20170523165546) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "writer_id",                null: false
@@ -37,16 +37,20 @@ ActiveRecord::Schema.define(version: 20170517140626) do
   end
 
   create_table "trips", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "owner_id",              null: false
-    t.string   "address",               null: false
-    t.date     "check_in",              null: false
-    t.date     "check_out",             null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.float    "latitude",   limit: 24
-    t.float    "longitude",  limit: 24
+    t.integer  "owner_id",                      null: false
+    t.string   "address",                       null: false
+    t.date     "check_in",                      null: false
+    t.date     "check_out",                     null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.float    "latitude",           limit: 24
+    t.float    "longitude",          limit: 24
     t.string   "city"
     t.string   "country"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["owner_id"], name: "index_trips_on_owner_id", using: :btree
   end
 
@@ -68,13 +72,17 @@ ActiveRecord::Schema.define(version: 20170517140626) do
     t.string   "uid"
     t.string   "name"
     t.date     "date_of_birth"
-    t.string   "gender",                                              null: false
+    t.string   "gender"
     t.string   "mobile_number"
     t.string   "locale",                               default: "ko", null: false
     t.string   "country",                              default: "kr", null: false
     t.text     "introduction",           limit: 65535
     t.string   "school"
     t.string   "job"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

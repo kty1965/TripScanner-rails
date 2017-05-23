@@ -6,6 +6,13 @@ class Trip < ApplicationRecord
   has_many :trip_members, dependent: :destroy
   has_many :members, through: :trip_members, class_name: "User"
 
+  has_attached_file(:image,
+                    styles: {
+                      medium: "640x640>",
+                      thumb: "320x320>"
+                    })
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
   geocoded_by :address do |obj, results|
     if geo = results.first
       obj.city = geo.city

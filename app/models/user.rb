@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  require "open_uri_redirections"
+
   acts_as_token_authenticatable
 
   # Include default devise modules. Others available are:
@@ -14,15 +16,22 @@ class User < ApplicationRecord
   has_many :owned_reviews, class_name: "Review", foreign_key: "owner_id"
   has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
 
-  validates :gender, presence: true, inclusion: { in: %w(male female) }
+  has_attached_file(:image,
+                    styles: {
+                      medium: "300x300>",
+                      thumb: "100x100>"
+                    })
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
+  validates :gender, inclusion: { in: %w(male female) }, :allow_blank => true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails, 
+      user.image = open(auth.info.image, allow_redirections: :all)
+      # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
@@ -30,5 +39,15 @@ class User < ApplicationRecord
 
   def reviews
     owned_reviews | written_reviews
+  end
+
+  def image_thumb
+    ActionController::Base.helpers.asset_path(image.url(:thumb))
+  end
+  def image_medium
+    ActionController::Base.helpers.asset_path(image.url(:medium))
+  end
+  def image_original
+    ActionController::Base.helpers.asset_path(image.url)
   end
 end
