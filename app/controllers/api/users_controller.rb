@@ -1,21 +1,32 @@
 class Api::UsersController < ApplicationController
-  before_action :find_me, only: [:show, :update]
+  before_action :authenticate_user!
+  before_action :find_me_or_user, only: [:show, :update]
 
   def show
-    render json: @user, serializer: ::Users::ShowSerializer
+    render json: @user, serializer: user_serializer
   end
 
   def update
+    authorize! :manage, @user
     @user.update!(user_params)
     render json: @user, serializer: ::Users::ShowSerializer
   end
 
   private
 
-  def find_me
+  def user_serializer
+    if can? :manage, @user
+      ::Users::ShowSerializer
+    else
+      ::UserSerializer
+    end
+  end
+
+  def find_me_or_user
     if params[:id] == 'me'
-      authenticate_user!
       @user = current_user
+    else
+      @user = User.find(params[:id])
     end
   end
 

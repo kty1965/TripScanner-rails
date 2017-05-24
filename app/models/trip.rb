@@ -11,6 +11,7 @@ class Trip < ApplicationRecord
                       thumb: "320x320>"
                     })
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  validates :content, presence: true
 
   geocoded_by :address do |obj, results|
     if geo = results.first
@@ -36,6 +37,7 @@ class Trip < ApplicationRecord
   end
 
   def image_data=(value)
+    return unless value
     tokens = value.split(";")
     content_type = tokens[0].split(":")[1]
     filename = tokens[1].split(":")[1]
