@@ -25,4 +25,14 @@ class Trip < ApplicationRecord
 
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode  # auto-fetch address
+
+  def image_thumb
+    ActionController::Base.helpers.asset_path(image.url(:thumb))
+  end
+  def image_medium
+    ActionController::Base.helpers.asset_path(image.url(:medium))
+  end
+  def image_original
+    ActionController::Base.helpers.asset_path(image.url)
+  end
 end

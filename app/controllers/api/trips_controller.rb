@@ -57,6 +57,6 @@ class Api::TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:check_in, :check_out, :address, :content)
+    params.require(:trip).permit(:check_in, :check_out, :address, :content, :image)
   end
 end

@@ -17,10 +17,8 @@ class User < ApplicationRecord
   has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
 
   has_attached_file(:image,
-                    styles: {
-                      medium: "300x300>",
-                      thumb: "100x100>"
-                    })
+    styles: { medium: "300x300>", thumb: "100x100>" },
+    default_url: lambda { |image| ActionController::Base.helpers.asset_path('images/users/missing.png') })
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates :gender, inclusion: { in: %w(male female) }, :allow_blank => true
