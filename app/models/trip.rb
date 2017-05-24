@@ -1,4 +1,5 @@
 class Trip < ApplicationRecord
+  before_validation :handling_image_type
 
   belongs_to :owner, class_name: "User"
   has_many :reviews, dependent: :destroy
@@ -34,5 +35,13 @@ class Trip < ApplicationRecord
   end
   def image_original
     ActionController::Base.helpers.asset_path(image.url)
+  end
+
+  def handling_image_type
+    unless self.image.is_a? ActionDispatch::Http::UploadedFile
+      temp_image = Paperclip.io_adapters.for(self.image)
+      temp_image.original_filename = "base_64.png"
+      self.image = temp_image
+    end
   end
 end
