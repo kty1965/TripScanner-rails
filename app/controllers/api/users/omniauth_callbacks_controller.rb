@@ -7,6 +7,7 @@ class Api::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
+    # Force sign_up
     sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
     # if @user.persisted?
     #   sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
