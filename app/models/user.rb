@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   require "open_uri_redirections"
-  before_validation :handling_image_type
 
   acts_as_token_authenticatable
 
@@ -50,11 +49,16 @@ class User < ApplicationRecord
     ActionController::Base.helpers.asset_path(image.url)
   end
 
-  def handling_image_type
-    unless self.image.is_a? ActionDispatch::Http::UploadedFile
-      temp_image = Paperclip.io_adapters.for(self.image)
-      temp_image.original_filename = "base_64.png"
-      self.image = temp_image
+  def image_data=(value)
+    tokens = value.split(";")
+    content_type = tokens[0].split(":")[1]
+    filename = tokens[1].split(":")[1]
+    value = tokens[2].split(",")[1]
+    StringIO.open(Base64.decode64(value)) do |data|
+      data.class.class_eval { attr_accessor :original_filename, :content_type }
+      data.content_type = content_type
+      data.original_filename = filename
+      self.image = data
     end
   end
 end
