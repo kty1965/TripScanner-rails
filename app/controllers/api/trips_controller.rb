@@ -17,7 +17,7 @@ class Api::TripsController < ApplicationController
 
   # current_user + load_and_authorize
   def join
-    @trip.members << User.where(id: ([@trip.id] - current_user.joined_trip_ids))
+    @trip.members << User.where(id: [current_user.id] - (@trip.member_ids) + [@trip.owner_id]))
     render json: @trip
   end
 
