@@ -60,3 +60,6 @@ gem 'geocoder'
 gem "paperclip", "~> 5.0.0"
 
 gem 'open_uri_redirections'
+
+gem 'activeadmin'
+gem 'country_select'
