@@ -14,6 +14,7 @@ class Ability
 
     # For Trip
     can :read, Trip
+    can :join, Trip
     can :modify, Trip, owner_id: @resource.id
 
     # Define abilities for the passed in user here. For example:

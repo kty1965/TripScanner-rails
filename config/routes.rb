@@ -15,6 +15,9 @@ Rails.application.routes.draw do
          get 'owned'
          get 'joined'
         end
+        member do
+          put 'join'
+        end
       end
       resources :reviews, only: [:show, :create] do
         collection do
