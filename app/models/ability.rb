@@ -11,6 +11,7 @@ class Ability
     can :read, Review, view_scope: "public"
     can :read, Review, {view_scope: "private", owner_id: @resource.id}
     can :read, Review, {view_scope: "private", writer_id: @resource.id}
+    can :update, Review, {writer_id: @resource.id}
 
     # For Trip
     can :read, Trip

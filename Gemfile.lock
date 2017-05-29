@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/seuros/state_machine.git
+  revision: 95ba53f03e5657a5873343c2b1dc6a148ea3542e
+  specs:
+    state_machine (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -311,6 +317,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  state_machine!
   tzinfo-data
 
 BUNDLED WITH

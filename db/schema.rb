@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524074328) do
+ActiveRecord::Schema.define(version: 20170529153005) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -47,11 +47,12 @@ ActiveRecord::Schema.define(version: 20170524074328) do
     t.integer  "writer_id",                null: false
     t.integer  "owner_id",                 null: false
     t.string   "view_scope",               null: false
-    t.float    "rate",       limit: 24,    null: false
+    t.float    "rate",       limit: 24
     t.text     "content",    limit: 65535
     t.integer  "trip_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "state"
     t.index ["owner_id"], name: "index_reviews_on_owner_id", using: :btree
     t.index ["trip_id"], name: "index_reviews_on_trip_id", using: :btree
     t.index ["writer_id"], name: "index_reviews_on_writer_id", using: :btree

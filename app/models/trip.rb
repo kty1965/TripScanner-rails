@@ -26,6 +26,10 @@ class Trip < ApplicationRecord
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode  # auto-fetch address
 
+  def join_user_ids
+    [owner.id] | member_ids
+  end
+
   def image_thumb
     ActionController::Base.helpers.asset_path(image.url(:thumb))
   end

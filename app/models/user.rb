@@ -35,8 +35,24 @@ class User < ApplicationRecord
     end
   end
 
+  def trips
+    owned_trips | written_trips
+  end
+
   def reviews
     owned_reviews | written_reviews
+  end
+
+  def written_reviews_count
+    owned_reviews.written.count
+  end
+
+  def written_reviews_rate
+    if written_reviews_count > 0
+      owned_reviews.written.map(&:rate).sum / written_reviews_count
+    else
+      nil
+    end
   end
 
   def image_thumb

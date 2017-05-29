@@ -19,10 +19,11 @@ Rails.application.routes.draw do
           put 'join'
         end
       end
-      resources :reviews, only: [:show, :create] do
+      resources :reviews, only: [:show, :update] do
         collection do
          get 'owned'
          get 'written'
+         get 'pending'
         end
       end
     end
