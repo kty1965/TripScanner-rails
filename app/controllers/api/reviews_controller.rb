@@ -18,7 +18,7 @@ class Api::ReviewsController < ApplicationController
   def create
     # can carete only trip members.
     # other members create
-    @review = current_user.reviews.create!(review_params)
+    @review = current_user.written_reviews.create!(review_params)
     render json: @review
   end
 
@@ -31,6 +31,6 @@ class Api::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:rate, :view_scope, :content, :owner_id, :writer_id)
+    params.require(:review).permit(:rate, :view_scope, :content, :owner_id)
   end
 end
