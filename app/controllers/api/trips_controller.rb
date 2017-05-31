@@ -23,7 +23,7 @@ class Api::TripsController < ApplicationController
 
   def leave
     TripMember.find_by(member_id: current_user, trip_id: params[:id]).destroy rescue nil
-    render json: {}
+    render json: Trip.find(params[:id])
   end
 
   #current_user
