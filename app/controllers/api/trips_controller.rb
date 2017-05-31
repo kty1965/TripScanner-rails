@@ -1,6 +1,6 @@
 class Api::TripsController < ApplicationController
   before_action :date_check, only: [:index]
-  before_action :authenticate_user!, only: [:owned, :joined, :create, :join]
+  before_action :authenticate_user!, only: [:owned, :joined, :create, :join, :leave]
   load_and_authorize_resource :trip, only: [:index, :show, :update, :destroy, :join]
 
   #current_user
@@ -19,6 +19,11 @@ class Api::TripsController < ApplicationController
   def join
     @trip.members << User.where(id: [current_user.id] - (@trip.member_ids + [@trip.owner_id]))
     render json: @trip
+  end
+
+  def leave
+    TripMember.find_by(member_id: current_user, trip_id: params[:id]).destroy rescue nil
+    render json: {}
   end
 
   #current_user

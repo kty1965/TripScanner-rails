@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
 
   rescue_from CanCan::AccessDenied,
-              with: -> (exception) { render_error 403, exception }
+              with: -> (exception) { render(json: {errors: exception}, status: 403 )}
 
   rescue_from ActiveRecord::RecordNotFound, with: :active_record_not_found_error
 

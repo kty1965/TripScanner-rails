@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         end
         member do
           put 'join'
+          delete 'leave'
         end
       end
       resources :reviews, only: [:show, :update] do
