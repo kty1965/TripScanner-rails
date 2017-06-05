@@ -16,8 +16,8 @@ class TripMember < ApplicationRecord
   def destroy_reviews
     pending_review_user_ids = trip.join_user_ids - [member.id]
     pending_review_user_ids.each do |user_id|
-      Review.find_by(owner_id: member.id, writer_id: user_id, trip: trip, view_scope: "public").destroy
-      Review.find_by(owner_id: user_id, writer_id: member.id, trip: trip, view_scope: "public").destroy
+      Review.find_by(owner_id: member.id, writer_id: user_id, trip: trip, view_scope: "public").destroy rescue nil
+      Review.find_by(owner_id: user_id, writer_id: member.id, trip: trip, view_scope: "public").destroy rescue nil
     end
   end
 end

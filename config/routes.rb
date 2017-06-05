@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           delete 'leave'
         end
       end
+
       resources :reviews, only: [:show, :update] do
         collection do
          get 'owned'
@@ -27,6 +28,26 @@ Rails.application.routes.draw do
          get 'pending'
         end
       end
+
+      scope shallow_path: "user" do
+        resources :users do
+          resources :reviews, controller: 'user/reviews' do
+            collection do
+             get 'owned'
+            end
+          end
+        end
+      end
+
+      # resources :users do
+      #   resources :reviews, only: [:show, :update], shallow: true do
+      #     collection do
+      #      get 'owned'
+      #      get 'written'
+      #      get 'pending'
+      #     end
+      #   end
+      # end
     end
   end
 end
